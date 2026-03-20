@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+
+<body>
+    <h1>Projeto Vendas BI</h1>
+
+    <form method="GET">   
+        <div class=" Filtros">
+        <h3>FILIAIS</h3>
+        <select name="filial">
+            <option value="">Todos</option>
+            {% for f in filiais %}
+            <option value="{{ f }}">{{ f }}</option>
+            {% endfor %}
+            
+        </select>
+
+
+
+
+
+        <h3>canal</h3>
+        <select name="canal">
+            <option value="">Todos</option>
+
+            {% for c in canais %}
+            <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+        </select>
+
+
+
+
+
+        <h3>Segmento</h3>
+        <select name="segmento">
+            <option value="">Todos</option>
+
+            {% for s in segmento %}
+            <option value="{{ s }}">{{ s }}</option>
+            {% endfor %}
+        </select>
+
+
+
+        <button type="submit">Aplicar</button>
+        <button type="reset">Limpar</button>
+        </div>
+    </form>
+
+
+    <div class="Valores">
+    <h3>Receita Total</h3>
+
+    <p title="{{ receita }}">R$: {{ receita }}</p>
+        </div>
+</body>
+
+</html>

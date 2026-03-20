@@ -7,4 +7,7 @@ def get_connection():
         return conn
     except Exception as e:
         print("Erro ao conectar:", e)
-        return None
+        raise
+
+
+
