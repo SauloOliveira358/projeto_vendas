@@ -1,6 +1,6 @@
 from app.db import get_connection
 
-def buscar_filiais():   # Função para buscar as filiais no banco de dados 
+def buscar_filiais():   
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -46,59 +46,113 @@ def buscar_segmento():
     conn.close()
     return dados
 
-def buscar_receitaTotal():
+def buscar_receitaTotal(filial=None, canal=None, segmento=None):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT SUM(receita_bruta) FROM vendas.vm_kpis_vendas_mensal")
+    
+    
+    sql = "SELECT SUM(receita_bruta) FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"
+    params = []
+
+   
+    if filial:
+        
+        sql += " AND filial LIKE %s" 
+        params.append(f"%{filial}%")
+    if canal:
+        sql += " AND canal = %s"
+        params.append(canal)
+    if segmento:
+        sql += " AND segmento = %s"
+        params.append(segmento)
+
+    cursor.execute(sql, params)
     dados = cursor.fetchone()
     conn.close()
-    if dados and dados[0] is not None:
-        return dados[0]
-    else:
-        return 0
+    
+    return dados[0] if dados and dados[0] is not None else 0
 
 
-
-def buscar_margem_media():
+def buscar_margem_media(filial=None, canal=None, segmento=None):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT AVG(margem_bruta_pct) FROM vendas.vm_kpis_vendas_mensal")
+    sql = "SELECT AVG(margem_bruta_pct) FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"
+    params = []
+
+    
+    if filial:
+        
+        sql += " AND filial LIKE %s" 
+        params.append(f"%{filial}%")
+    if canal:
+        sql += " AND canal = %s"
+        params.append(canal)
+    if segmento:
+        sql += " AND segmento = %s"
+        params.append(segmento)
+
+    cursor.execute(sql, params)
     dados = cursor.fetchone()
     conn.close()
-    if dados and dados[0] is not None:
-        return dados[0]
-    else:
-        return 0
+    
+    return dados[0] if dados and dados[0] is not None else 0
 
 
 
 
-def buscar_Ticket_medio():
+def buscar_Ticket_medio(filial=None, canal=None, segmento=None):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT AVG(ticket_medio) FROM vendas.vm_kpis_vendas_mensal")
+   
+    sql = "SELECT AVG(ticket_medio) FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"
+    params = []
+
+    
+    if filial:
+        
+        sql += " AND filial LIKE %s"     
+        params.append(f"%{filial}%")
+    if canal:
+        sql += " AND canal = %s"
+        params.append(canal)
+    if segmento:
+        sql += " AND segmento = %s"
+        params.append(segmento)
+
+    cursor.execute(sql, params)
     dados = cursor.fetchone()
     conn.close()
-    if dados and dados[0] is not None:
-        return dados[0]
-    else:
-        return 0
+    
+    return dados[0] if dados and dados[0] is not None else 0
 
 
 
 
 
 
-def buscar_crescimento_medio():
+def buscar_crescimento_medio(filial=None, canal=None, segmento=None):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT AVG(crescimento_receita_pct) FROM vendas.vm_kpis_vendas_mensal")
+    
+    sql = "SELECT AVG(crescimento_receita_pct) FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"
+    params = []
+     
+    if filial:
+        
+        sql += " AND filial LIKE %s" 
+        params.append(f"%{filial}%")
+    if canal:
+        sql += " AND canal = %s"
+        params.append(canal)
+    if segmento:
+        sql += " AND segmento = %s"
+        params.append(segmento)
+
+    cursor.execute(sql, params)
     dados = cursor.fetchone()
     conn.close()
-    if dados and dados[0] is not None:
-        return dados[0]
-    else:
-        return 0
+    
+    return dados[0] if dados and dados[0] is not None else 0
 
 
 

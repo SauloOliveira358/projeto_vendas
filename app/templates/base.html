@@ -6,77 +6,78 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+   
 </head>
 
 <body>
     <h1>Projeto Vendas BI</h1>
 
     <form method="GET">   
-        <div class=" Filtros">
+        <div class="Filtros">
         <h3>FILIAIS</h3>
-        <select name="filial">
-            <option value="">Todos</option>
-            {% for f in filiais %}
-            <option value="{{ f }}">{{ f }}</option>
-            {% endfor %}
-            
-        </select>
+     <select name="filial">
+    <option value="">Todos</option>
+    {% for f in filiais %}
+    <option value="{{ f }}" {% if f == filial_sel %}selected{% endif %}>{{ f }}</option>
+    {% endfor %}
+</select>
 
 
 
+<select name="canal">
+    <option value="">Todos</option>
+    {% for c in canais %}
+    <option value="{{ c }}" {% if c == canal_sel %}selected{% endif %}>{{ c }}</option>
+    {% endfor %}
+</select>
 
-
-        <h3>canal</h3>
-        <select name="canal">
-            <option value="">Todos</option>
-
-            {% for c in canais %}
-            <option value="{{ c }}">{{ c }}</option>
-            {% endfor %}
-        </select>
-
-
-
-
-
-        <h3>Segmento</h3>
-        <select name="segmento">
-            <option value="">Todos</option>
-
-            {% for s in segmento %}
-            <option value="{{ s }}">{{ s }}</option>
-            {% endfor %}
-        </select>
-
+<select name="segmento">
+    <option value="">Todos</option>
+    {% for s in segmento %}
+    <option value="{{ s }}" {% if s == segmento_sel %}selected{% endif %}>{{ s }}</option>
+    {% endfor %}
+</select>
 
 
         <button type="submit">Aplicar</button>
-        <button type="reset">Limpar</button>
+        <button type="button" onclick="window.location.href='/'">Limpar</button>
         </div>
     </form>
 
 
     <div class="Valores_dos_Filtros">
-    
-        <h2>Receita total</h2>
-    <p title="{{ receita }}">R$: {{ receita }}</p>
-            <h2>Margem Média</h2>
+    <h2>Receita total</h2>
+    <p>R$: {{ "{:,.2f}".format(receita) }}</p>
 
-    <p title="{{ margem_media }}">R$: {{ margem_media }}</p>
-            <h2>Ticket Médio</h2>
+    <h2>Margem Média</h2>
+    <p>{{ "{:.2f}".format(margem_media) }}%</p>
 
-    <p title="{{ ticket_medio }}">R$: {{ ticket_medio }}</p>
-            <h2>Cresciemnto Total</h2>
+    <h2>Ticket Médio</h2>
+    <p>R$: {{ "{:,.2f}".format(ticket_medio) }}</p>
 
-    <p title="{{ crescimento_medio }}">R$: {{ crescimento_medio }}</p>
+    <h2>Crescimento Total</h2>
+    <p>{{ "{:.2f}".format(crescimento_medio) }}%</p>
+</div>
+
+        
+        <div style="width: 600px; height: 300px;">
+    <canvas id="grafico_Receita_liquida"></canvas>
+    <canvas id="Margem_bruta_Media" style="height:300px;"></canvas>
+    <canvas id="Outro_grafico" style="height:300px;"></canvas>
+    <canvas id="Outro_grafico2" style="height:300px;"></canvas>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         </div>
-        <canvas id="grafico_Receita_liquida"></canvas>
-        <canvas id="Margem_bruta_Média"></canvas>
-        <canvas id="Outro_grafico"></canvas>
-        <canvas id="Outro_grafico2"></canvas>
+        
+<script src="{{ url_for('static', filename='js/graficos.js') }}"></script>
 
+<script>
+    const grafico1 = criarGrafico('grafico_Receita_liquida', 'Receita Líquida');
+    const grafico2 = criarGrafico('Margem_bruta_Media', 'Margem Bruta Média');
+    const grafico3 = criarGrafico('Outro_grafico', 'Outro Gráfico');
+    const grafico4 = criarGrafico('Outro_grafico2', 'Outro Gráfico 2'); 
+</script>
     
 </body>
 
