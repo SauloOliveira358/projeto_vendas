@@ -58,11 +58,26 @@
     </form>
 
 
-    <div class="Valores">
-    <h3>Receita Total</h3>
-
+    <div class="Valores_dos_Filtros">
+    
+        <h2>Receita total</h2>
     <p title="{{ receita }}">R$: {{ receita }}</p>
+            <h2>Margem Média</h2>
+
+    <p title="{{ margem_media }}">R$: {{ margem_media }}</p>
+            <h2>Ticket Médio</h2>
+
+    <p title="{{ ticket_medio }}">R$: {{ ticket_medio }}</p>
+            <h2>Cresciemnto Total</h2>
+
+    <p title="{{ crescimento_medio }}">R$: {{ crescimento_medio }}</p>
         </div>
+        <canvas id="grafico_Receita_liquida"></canvas>
+        <canvas id="Margem_bruta_Média"></canvas>
+        <canvas id="Outro_grafico"></canvas>
+        <canvas id="Outro_grafico2"></canvas>
+
+    
 </body>
 
 </html>
