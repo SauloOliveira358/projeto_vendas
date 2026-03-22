@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if erro_db %}
+
+<div style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    text-align: center;
+    gap: 16px;
+">
+    <div style="font-size: 64px;">⚠️</div>
+    <h2 style="font-size: 28px; margin: 0;color: #2e0602;">Erro de Conexão</h2>
+    <p style="font-size: 16px; color: #666; margin: 0;">
+        Não foi possível conectar ao banco de dados.
+    </p>
+</div>
+
+{% else %}
+
+<div class="container">
+
+    <h2>Analise de Vendas</h2>
+
+
+    <form method="GET">
+        <div class="topo-bg"></div>
+        <div class="filtros">
+
+            <div>
+                <label>Filial</label>
+                <select name="filial">
+                    <option value="">Todas</option>
+                    {% for f in filiais %}
+                        <option value="{{ f }}" {% if f == filial_sel %}selected{% endif %}>
+                            {{ f }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label>Canal</label>
+                <select name="canal">
+                    <option value="">Todos</option>
+                    {% for c in canais %}
+                        <option value="{{ c }}" {% if c == canal_sel %}selected{% endif %}>
+                            {{ c }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label>Segmento</label>
+                <select name="segmento">
+                    <option value="">Todos</option>
+                    {% for s in segmentos %}
+                        <option value="{{ s }}" {% if s == segmento_sel %}selected{% endif %}>
+                            {{ s }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn-aplicar">Aplicar</button>
+            <a href="/vendas" class="btn-limpar">Limpar</a>
+
+        </div>
+    </form>
+
+    
+    <div class="kpis">
+
+        <div class="card">
+            <div class="titulo">Receita Total</div>
+            <div class="valor">R$ {{ "{:,.2f}".format(receita | float).replace(",", "X").replace(".", ",").replace("X", ".") }}</div>
+        </div>
+
+        <div class="card">
+            <div class="titulo">Margem Média %</div>
+            <div class="valor">{{ "{:.2f}".format(margem_media | float).replace(".", ",") }}%</div>
+        </div>
+
+        <div class="card">
+            <div class="titulo">Ticket Médio</div>
+            <div class="valor">R$ {{ "{:,.2f}".format(ticket_medio | float).replace(",", "X").replace(".", ",").replace("X", ".") }}</div>
+        </div>
+
+        <div class="card">
+            <div class="titulo">Crescimento Médio %</div>
+            <div class="valor">{{ "{:.2f}".format(crescimento_medio | float).replace(".", ",") }}%</div>
+        </div>
+
+    </div>
+
+    
+    <div class="graficos">
+
+        <div class="grafico">
+            Receita Líquida Mensal
+        </div>
+
+        <div class="grafico">
+            Margem Bruta Média por Mês
+        </div>
+
+        <div class="grafico">
+            Receita por Canal
+        </div>
+
+        <div class="grafico">
+            Crescimento por Filial
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

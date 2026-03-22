@@ -2,6 +2,8 @@ from app.db import get_connection
 
 def buscar_filiais():   
     conn = get_connection()
+    if conn is None:
+        return None
     cursor = conn.cursor()
 
     cursor.execute("SELECT distinct filial FROM vendas.vm_kpis_vendas_mensal")
@@ -19,6 +21,8 @@ def buscar_filiais():
 
 def buscar_canal():
     conn = get_connection()
+    if conn is None:
+        return None
     cursor = conn.cursor()
 
     cursor.execute("SELECT distinct canal FROM vendas.vm_kpis_vendas_mensal")
@@ -36,6 +40,8 @@ def buscar_canal():
 
 def buscar_segmento():
     conn = get_connection()
+    if conn is None:
+        return None
     cursor = conn.cursor()
     cursor.execute("SELECT distinct segmento FROM vendas.vm_kpis_vendas_mensal")
     dados = cursor.fetchall()
@@ -48,6 +54,8 @@ def buscar_segmento():
 
 def buscar_receitaTotal(filial=None, canal=None, segmento=None):
     conn = get_connection()
+    if conn is None:
+        return None
     cursor = conn.cursor()
     
     
@@ -75,8 +83,10 @@ def buscar_receitaTotal(filial=None, canal=None, segmento=None):
 
 def buscar_margem_media(filial=None, canal=None, segmento=None):
     conn = get_connection()
+    if conn is None:
+        return None
     cursor = conn.cursor()
-    sql = "SELECT AVG(margem_bruta_pct) FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"
+    sql = "SELECT SUM(receita_liquida - custo_total) / NULLIF(SUM(receita_liquida), 0) * 100 FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"
     params = []
 
     
@@ -102,6 +112,8 @@ def buscar_margem_media(filial=None, canal=None, segmento=None):
 
 def buscar_Ticket_medio(filial=None, canal=None, segmento=None):
     conn = get_connection()
+    if conn is None:
+        return None
     cursor = conn.cursor()
    
     sql = "SELECT AVG(ticket_medio) FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"
@@ -132,6 +144,8 @@ def buscar_Ticket_medio(filial=None, canal=None, segmento=None):
 
 def buscar_crescimento_medio(filial=None, canal=None, segmento=None):
     conn = get_connection()
+    if conn is None:
+        return None
     cursor = conn.cursor()
     
     sql = "SELECT AVG(crescimento_receita_pct) FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"

@@ -1,0 +1,130 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background: #F5F7FA;
+    margin: 0;
+}
+
+h2 {
+    font-size: 30px;
+    color: #e8f0f3;
+    font-weight: bold;
+}
+
+.topo-bg {
+    background: linear-gradient(135deg, #124253,#629aad);
+    height: 185px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+.container {
+    padding: 30px 60px;
+}
+
+
+h2 {
+    margin-bottom: 20px;
+}
+
+
+.filtros {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.filtros div {
+    display: flex;
+    flex-direction: column;
+}
+
+.filtros label {
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+    margin-bottom: 5px; 
+}
+
+select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 2px;
+}
+
+
+.btn-aplicar {
+    background-color: #1f6f8b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-limpar {
+    background: none;
+    border: none;
+    color: #1f6f8b;
+    cursor: pointer;
+}
+
+
+.kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 12px;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-left: 5px solid #2F80ED;
+}
+
+.card:nth-child(1) { border-left-color: #2F80ED; }
+.card:nth-child(2) { border-left-color: #27AE60; }
+.card:nth-child(3) { border-left-color: #F2C94C; }
+.card:nth-child(4) { border-left-color: #EB5757; }
+
+.titulo {
+    font-size: 14px;   
+    font-weight: bold;
+    color: #666;
+}
+
+.valor {
+    font-size: 22px;
+
+}
+
+.graficos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.grafico {
+    background: #ffffff;
+    height: 350px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
