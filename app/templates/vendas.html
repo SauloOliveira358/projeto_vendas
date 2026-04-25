@@ -100,27 +100,59 @@
 
     
     <div class="graficos">
-
-        <div class="grafico">
-            Receita Líquida Mensal
-        </div>
-
-        <div class="grafico">
-            Margem Bruta Média por Mês
-        </div>
-
-        <div class="grafico">
-            Receita por Canal
-        </div>
-
-        <div class="grafico">
-            Crescimento por Filial
-        </div>
-
+    <div class="grafico"> 
+        <canvas id="graficoReceita"></canvas>
     </div>
 
+    <div class="grafico">
+        <canvas id="graficoCrecimento"></canvas>
+    </div>
+
+    <div class="grafico">
+        <canvas id="graficoCanal"></canvas>
+    </div>
+
+    <div class="grafico">
+        <canvas id="graficoFilialMes"></canvas>
+    </div>
 </div>
+
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{{ url_for('static', filename='js/graficos.js') }}"></script>
+
+<script id="dados-graficos" type="application/json">
+    {{ {
+        "labels": labels,
+        "valores": valores,
+        "labels_crescimento": labels_crescimento,
+        "valores_crescimento": valores_crescimento,
+        "labels_crescimento_canal": labels_crescimento_canal,
+        "datasets_crescimento_canal": datasets_crescimento_canal,
+        "labels_filial_mes": labels_filial_mes,
+        "datasets_filial_mes": datasets_filial_mes
+    } | tojson | safe }}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dados = JSON.parse(
+        document.getElementById("dados-graficos").textContent
+    );
+
+    criarGrafico1("graficoReceita", "Receita Liquida Mensal", dados.labels || [], dados.valores || []);
+    criarGrafico2("graficoCrecimento", "Receita Total de cada Filial", dados.labels_crescimento || [], dados.valores_crescimento || []);
+    criarGrafico3("graficoCanal", "Crescimento por Canal", dados.labels_crescimento_canal || [], dados.datasets_crescimento_canal || []);
+    criarGrafico4("graficoFilialMes", "Receita por Filial e Mês", dados.labels_filial_mes || [], dados.datasets_filial_mes || []);
+
+});
+</script>
+
+
 
 {% endif %}
 
 {% endblock %}
+

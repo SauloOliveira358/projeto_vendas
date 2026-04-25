@@ -115,16 +115,19 @@ select {
 
 .graficos {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto auto; /* Mantém dois por linha */
     gap: 20px;
+    justify-content: center;
 }
 
 .grafico {
     background: #ffffff;
-    height: 350px;
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
+    padding: 20px;
+    
+    /* ALTERE ESTE VALOR PARA AUMENTAR A LARGURA */
+    width: 600px; 
+    
+    /* Remova ou ajuste a altura aqui se necessário */
+    height: 450px; 
 }
