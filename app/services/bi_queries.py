@@ -257,7 +257,7 @@ def buscar_Filial_Crecimento(filial=None, canal=None, segmento=None):
 
 
 
-def buscar_receita_por_canal(filial=None, canal=None, segmento=None):
+def buscar_crescimento_mensal_pct(filial=None, canal=None, segmento=None):
     conn = get_connection()
     if conn is None:
         return None
@@ -265,8 +265,13 @@ def buscar_receita_por_canal(filial=None, canal=None, segmento=None):
     cursor = conn.cursor()
 
     sql = """
-        SELECT canal, data_mes, SUM(receita_bruta) as receita_total FROM vendas.vm_kpis_vendas_mensal
-        WHERE 1=1
+        SELECT 
+        data_mes,
+        AVG(crescimento_receita_pct) AS crescimento_mensal
+    FROM vendas.vm_kpis_vendas_mensal
+    WHERE 1=1
+    AND crescimento_receita_pct IS NOT NULL 
+        
     """
     
     params = []
@@ -283,7 +288,7 @@ def buscar_receita_por_canal(filial=None, canal=None, segmento=None):
         sql += " AND segmento = %s"
         params.append(segmento)
 
-    sql += " GROUP BY canal,data_mes ORDER BY canal,data_mes"
+    sql += " GROUP BY data_mes ORDER BY data_mes"
 
     cursor.execute(sql, params)
     dados = cursor.fetchall()
@@ -298,7 +303,7 @@ def buscar_receita_por_canal(filial=None, canal=None, segmento=None):
 
 
 
-def buscar_filial_por_mes(filial=None, canal=None, segmento=None):
+def buscar_ticket_medio_por_mes(filial=None, canal=None, segmento=None):
     conn = get_connection()
     if conn is None:
         return None
@@ -306,7 +311,7 @@ def buscar_filial_por_mes(filial=None, canal=None, segmento=None):
     cursor = conn.cursor()
 
     sql = """
-        SELECT filial,data_mes,SUM(receita_liquida) as Receita_Filial FROM vendas.vm_kpis_vendas_mensal WHERE 1=1
+        SELECT  data_mes, AVG(ticket_medio) as ticket_medio FROM vendas.vm_kpis_vendas_mensal WHERE 1=1
     """
     
     params = []
@@ -323,7 +328,7 @@ def buscar_filial_por_mes(filial=None, canal=None, segmento=None):
         sql += " AND segmento = %s"
         params.append(segmento)
 
-    sql += " GROUP BY filial,data_mes ORDER BY filial,data_mes"
+    sql += " GROUP BY data_mes ORDER BY data_mes"
 
     cursor.execute(sql, params)
     dados = cursor.fetchall()

@@ -9,8 +9,8 @@ from .services.bi_queries import (
     buscar_crescimento_medio,
     buscar_receita_por_mes,
     buscar_Filial_Crecimento,
-    buscar_receita_por_canal,
-    buscar_filial_por_mes
+    buscar_crescimento_mensal_pct,
+    buscar_ticket_medio_por_mes
     )
 from collections import defaultdict
 
@@ -60,49 +60,23 @@ def init_routes(app):
             labels_crescimento = [str(d[0]) for d in dados_crescimento]
             valores_crescimento = [float(d[1]) for d in dados_crescimento]
 
-            dados_crescimento_canal = buscar_receita_por_canal(f_filial, f_canal, f_segmento)
+            dados_crescimento_receita_mes = buscar_crescimento_mensal_pct(f_filial, f_canal, f_segmento)
+            labels_crescimento_canal = [str(d[0]) for d in dados_crescimento_receita_mes]
+            valores_crescimento_canal = [float(d[1]) for d in dados_crescimento_receita_mes]
+
+
+        
+
+           
+
+
+
+            ##Grafico 4
+            dados_ticket_médio = buscar_ticket_medio_por_mes(f_filial, f_canal, f_segmento)
+            datas_ticket_medio = [str(d[0]) for d in dados_ticket_médio]
+            valores_ticket_medio = [float(d[1]) for d in dados_ticket_médio]
+
             
-
-            dados = buscar_receita_por_canal(f_filial, f_canal, f_segmento)
-
-            datas = sorted(list(set([str(d[1]) for d in dados])))
-            canais_unicos = sorted(list(set([str(d[0]) for d in dados])))
-
-            estrutura = defaultdict(dict)
-
-            for canal, data, valor in dados:
-                estrutura[str(canal)][str(data)] = float(valor)
-
-            datasets = []
-
-            for canal in canais_unicos:
-                valores_canal = []
-                for data in datas:
-                    valores_canal.append(estrutura[canal].get(data, 0))
-                
-                datasets.append({
-                    "label": canal,
-                    "data": valores_canal
-                })
-
-            dados_filial_mes = buscar_filial_por_mes(f_filial, f_canal, f_segmento)
-            datas_filial_mes = sorted(list(set([str(d[1]) for d in dados_filial_mes])))
-            filiais_unicas = sorted(list(set([str(d[0]) for d in dados_filial_mes])))
-
-            estrutura_filial_mes = defaultdict(dict)
-
-            for filial, data, valor in dados_filial_mes:
-                estrutura_filial_mes[str(filial)][str(data)] = float(valor)
-                datasets_filial_mes = []
-            for filial in filiais_unicas:
-                valores_filial_mes = []
-                for data in datas_filial_mes:
-                    valores_filial_mes.append(estrutura_filial_mes[filial].get(data, 0))
-                
-                datasets_filial_mes.append({
-                    "label": filial,
-                    "data": valores_filial_mes
-                })
 
             if (
                 receita is None or
@@ -130,10 +104,10 @@ def init_routes(app):
                 valores=valores,
                 labels_crescimento=labels_crescimento,
                 valores_crescimento=valores_crescimento,
-                labels_crescimento_canal=datas,
-                datasets_crescimento_canal=datasets,
-                labels_filial_mes=datas_filial_mes,
-                datasets_filial_mes=datasets_filial_mes
+                labels_crescimento_canal=labels_crescimento_canal,
+                valores_crescimento_canal=valores_crescimento_canal,
+                datas_ticket_medio=datas_ticket_medio,
+                valores_ticket_medio=valores_ticket_medio
 
             )
 

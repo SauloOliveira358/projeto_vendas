@@ -21,7 +21,13 @@
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            plugins: {
+        legend: {
+            display: true,
+            position: 'bottom'
+        }
+    }
         }
     });
 }
@@ -40,19 +46,65 @@ function criarGrafico2(idCanvas, titulo, labels, valores) {
             labels: labels,
             datasets: [{
                 label: titulo,
+                data: valores,
+                maxBarThickness: 50
+            }]
+        },
+        
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+        legend: {
+            display: true,
+            position: 'bottom'
+        }
+    }
+        }
+        
+    });
+}
+
+
+
+
+function criarGrafico3(idCanvas, titulo, labels, valores) {
+    const ctx = document.getElementById(idCanvas);
+
+    if (!ctx) {
+        console.error("Canvas não encontrado:", idCanvas);
+        return;
+    }
+
+    return new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: titulo,
                 data: valores
             }]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                }
+            }
         }
     });
 }
 
 
 
-function criarGrafico4(idCanvas, titulo, labels, datasets) {
+
+
+
+
+function criarGrafico4(idCanvas, titulo, labels, valores) {
     const ctx = document.getElementById(idCanvas);
 
     if (!ctx) {
@@ -61,10 +113,13 @@ function criarGrafico4(idCanvas, titulo, labels, datasets) {
     }
 
     return new Chart(ctx, {
-        type: 'line', // 🔥 melhor para evolução no tempo
+        type: 'line',
         data: {
             labels: labels,
-            datasets: datasets
+            datasets: [{
+                label: titulo,
+                data: valores
+            }]
         },
         options: {
             responsive: true,
@@ -75,34 +130,9 @@ function criarGrafico4(idCanvas, titulo, labels, datasets) {
                     position: 'bottom'
                 }
             }
-}
+        }
     });
 }
 
 
-function criarGrafico3(idCanvas, titulo, labels, datasets) {
-    const ctx = document.getElementById(idCanvas);
 
-    if (!ctx) {
-        console.error("Canvas não encontrado:", idCanvas);
-        return;
-    }
-
-    return new Chart(ctx, {
-        type: 'line', // 🔥 melhor para evolução no tempo
-        data: {
-            labels: labels,
-            datasets: datasets
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'bottom'
-                }
-            }
-}
-    });
-}
