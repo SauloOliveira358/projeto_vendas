@@ -113,4 +113,26 @@ def init_routes(app):
 
         except Exception as e:
             print("Erro na rota /vendas:", e)
-            return render_template("vendas.html", erro_db=True)
+
+            return render_template(
+                "vendas.html",
+                erro_db=True,
+                filiais=[],
+                canais=[],
+                segmentos=[],
+                receita=0,
+                margem_media=0,
+                ticket_medio=0,
+                crescimento_medio=0,
+                filial_sel="",
+                canal_sel="",
+                segmento_sel="",
+                labels=[],
+                valores=[],
+                labels_crescimento=[],
+                valores_crescimento=[],
+                labels_crescimento_canal=[],
+                valores_crescimento_canal=[],
+                datas_ticket_medio=[],
+                valores_ticket_medio=[]
+            )
