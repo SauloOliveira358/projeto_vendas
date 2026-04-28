@@ -66,6 +66,7 @@ function criarGrafico1(idCanvas, titulo, labels, valores) {
           ticks: { color: TEXT_COLOR, font: { size: 11 } }
         },
         y: {
+          beginAtZero: true,
           title: { display: true, text: 'Receita (R$)', color: TEXT_COLOR, font: { size: 11 } },
           grid: { color: GRID_COLOR, borderDash: [4, 4] },
           ticks: {
@@ -119,7 +120,10 @@ function criarGrafico2(idCanvas, titulo, labels, valores) {
       responsive: true,
       maintainAspectRatio: false,
       layout: { padding: { right: 80 } },   // espaço para rótulos fora das barras curtas
-      interaction: { mode: 'index', intersect: false },
+      iinteraction: {
+  mode: 'nearest',
+  intersect: true
+},
       plugins: {
         title: {
           display: true,
@@ -130,8 +134,11 @@ function criarGrafico2(idCanvas, titulo, labels, valores) {
         },
         legend: { display: false },
         tooltip: {
-          callbacks: { label: ctx => formatBRL(ctx.parsed.x) }
-        }
+              callbacks: {
+                title: (ctx) => ctx[0].label, // nome da filial
+                label: (ctx) => 'Receita: ' + formatBRL(ctx.parsed.x)
+              }
+}
       },
       scales: {
         x: {
@@ -230,6 +237,7 @@ function criarGrafico3(idCanvas, titulo, labels, valores) {
           ticks: { color: TEXT_COLOR, font: { size: 11 } }
         },
         y: {
+          beginAtZero: true,
           title: { display: true, text: 'Crescimento (%)', color: TEXT_COLOR, font: { size: 11 } },
           grid: { color: GRID_COLOR, borderDash: [4, 4] },
           ticks: {
@@ -294,6 +302,7 @@ function criarGrafico4(idCanvas, titulo, labels, valores) {
           ticks: { color: TEXT_COLOR, font: { size: 11 } }
         },
         y: {
+          beginAtZero: true,
           title: { display: true, text: 'Ticket Médio (R$)', color: TEXT_COLOR, font: { size: 11 } },
           grid: { color: GRID_COLOR, borderDash: [4, 4] },
           ticks: {

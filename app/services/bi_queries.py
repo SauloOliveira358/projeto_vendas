@@ -186,7 +186,7 @@ def buscar_receita_por_mes(filial=None, canal=None, segmento=None):
     sql = """
         SELECT 
             data_mes,
-            SUM(receita_bruta) AS receita_total
+            SUM(receita_liquida) AS receita_total
         FROM vendas.vm_kpis_vendas_mensal
         WHERE 1=1
     """

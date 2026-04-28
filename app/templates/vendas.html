@@ -126,8 +126,8 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     criarGrafico1("graficoReceita",    "Receita Liquida Mensal",      dados.labels                  || [], dados.valores                  || []);
-    criarGrafico2("graficoCrecimento", "Receita Total de cada Filial", dados.labels_crescimento      || [], dados.valores_crescimento      || []);
-    criarGrafico3("graficoCanal",      "Crescimento Médio Mensal",    dados.labels_crescimento_canal || [], dados.valores_crescimento_canal || []);
+    criarGrafico2("graficoCrecimento", "Receita Liquida de cada Filial", dados.labels_crescimento      || [], dados.valores_crescimento      || []);
+    criarGrafico3("graficoCanal",      "Variação Médio Mensal",    dados.labels_crescimento_canal || [], dados.valores_crescimento_canal || []);
     criarGrafico4("graficoFilialMes",  "Ticket Médio",                dados.datas_ticket_medio       || [], dados.valores_ticket_medio      || []);
 
 });
