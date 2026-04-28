@@ -59,7 +59,7 @@ def buscar_receitaTotal(filial=None, canal=None, segmento=None):
     cursor = conn.cursor()
     
     
-    sql = "SELECT SUM(receita_bruta) FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"
+    sql = "SELECT SUM(receita_liquida) FROM vendas.vm_kpis_vendas_mensal WHERE 1=1"
     params = []
 
    
